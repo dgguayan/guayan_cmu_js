@@ -12,11 +12,15 @@
                   <a href="<?php echo base_url('articles_general'); ?>" class="align-self-center" style="color: black !important;"><i class="fa fa-arrow-left align-self-center mr-3" aria-hidden="true"></i></a>
                 <?php endif; ?>
 
+                <?php if( $this->session->userdata('roleid') == 2) :?>
+                  <a href="<?php echo base_url('evaluate_articles'); ?>" class="align-self-center" style="color: black !important;"><i class="fa fa-arrow-left align-self-center mr-3" aria-hidden="true"></i></a>
+                <?php endif; ?>
+
                 <?php if( $this->session->userdata('roleid') == 3) :?>
                   <a href="<?php echo base_url('articles'); ?>" class="align-self-center" style="color: black !important;"><i class="fa fa-arrow-left align-self-center mr-3" aria-hidden="true"></i></a>
                 <?php endif; ?>
                 
-                <h1><?= $title ?></h1>
+                <h1 class="text-bold"><?= $title ?></h1>
                 </div>
                 
               </div>
@@ -76,10 +80,11 @@
                
                   <p class="ml-5"><i class="mr-1 fa fa-link" aria-hidden="true"></i>DOI: <a class="text-primary" href="<?php echo $articles['doi']; ?>"><?php echo $articles['doi']; ?></a></p>
                 
-                  <p class="ml-5"><i class="mr-1 fa fa-link" aria-hidden="true"></i>PDF: <a class="text-primary" href="<?php echo base_url()?>assets/uploads/articles/<?php echo $articles['filename'];?>" target="_blank">href="<?php echo base_url()?>assets/uploads/articles/<?php echo $articles['filename'];?>"</a></p>
+                  <p class="ml-5"><i class="mr-1  fa fa-file" aria-hidden="true"></i>PDF: <a class="text-primary" href="<?php echo base_url()?>assets/uploads/articles/<?php echo $articles['filename'];?>" target="_blank">href="<?php echo base_url()?>assets/uploads/articles/<?php echo $articles['filename'];?>"</a></p>
                   
                   <?php  // if($this->session->userdata('userid') == $articles['userid'] || $this->session->userdata('roleid') == 3) :?>
 
+                    <!-- AUTHORS -->
                     <?php if ($this->article_model->is_author_of_article($this->session->userdata('userid'), $articles['articleid'])) : ?>
                         <a class="btn-block" href="<?php echo site_url("articles/edit_article_general/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-primary">Edit</button></a>
                         
@@ -88,14 +93,15 @@
                         <?php echo form_close(); ?>
                     <?php endif; ?>
 
-                    <!-- <?php if($this->session->userdata('userid') == $articles['userid']) :?>
-                        <a class="btn-block" href="<?php echo site_url("articles/edit_article_general/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-primary">Edit</button></a>
+                    <!-- <//?php if($this->session->userdata('userid') == $articles['userid']) :?>
+                        <a class="btn-block" href="<//?php echo site_url("articles/edit_article_general/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-primary">Edit</button></a>
                         
-                        <?php echo form_open('articles/delete_article_user/'.$articles['articleid'], array('style' => 'display: block;')); ?>
+                        <//?php echo form_open('articles/delete_article_user/'.$articles['articleid'], array('style' => 'display: block;')); ?>
                             <button type="submit" class="mt-2 btn btn-block btn-danger">Delete</button>
-                        <?php echo form_close(); ?>
-                    <?php endif; ?> -->
+                        <//?php echo form_close(); ?>
+                    <//?php endif; ?> -->
 
+                    <!-- ADMIN -->
                     <?php if( $this->session->userdata('roleid') == 3) :?>
                         <a class="btn-block" href="<?php echo site_url("articles/edit_article/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-primary">Edit</button></a>
                         
@@ -105,6 +111,12 @@
 
                     <?php endif; ?>
 
+                    <!-- EVALUATOR -->
+
+                    <?php if( $this->session->userdata('roleid') == 2) :?>
+                        <a class="btn-block" href="<?php echo site_url("evaluate/approve_article/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-success">Approve</button></a>
+                        
+                    <?php endif; ?>
                  
                   </div>
 

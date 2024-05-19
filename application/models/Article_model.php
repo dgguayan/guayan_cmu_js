@@ -164,4 +164,12 @@
             $this->db->delete('articles');
             return true;
         }
+
+        public function approve_article($articleid)
+        {
+            $data = array('approve' => 1);
+            $this->db->where('articleid', $articleid);
+            $this->db->update('articles', $data);
+            return true;
+        }
     }

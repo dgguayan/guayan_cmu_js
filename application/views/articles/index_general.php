@@ -66,7 +66,7 @@
                
                   <p class="ml-5"><i class="mr-1 fa fa-link" aria-hidden="true"></i>DOI: <a class="text-primary" href="<?php echo $article['doi']; ?>"><?php echo $article['doi']; ?></a></p>
                 
-                  <p class="ml-5"><i class="mr-1 fa fa-link" aria-hidden="true"></i>PDF: <a class="text-primary" href="<?php echo base_url()?>assets/uploads/articles/<?php echo $article['filename'];?>" target="_blank">href="<?php echo base_url()?>assets/uploads/articles/<?php echo $article['filename'];?>"</a></p>
+                  <p class="ml-5"><i class="mr-1  fa fa-file" aria-hidden="true"></i>PDF: <a class="text-primary" href="<?php echo base_url()?>assets/uploads/articles/<?php echo $article['filename'];?>" target="_blank">href="<?php echo base_url()?>assets/uploads/articles/<?php echo $article['filename'];?>"</a></p>
 
                   <a href="<?php echo site_url('article_detail_general/'.$article['articleid']); ?>"><button type="button" class="btn btn-block btn-dark col-md-2 ml-5">Read More <i class="fa fa-arrow-right ml-1" style="color:white" aria-hidden="true"></i></button></a>
 

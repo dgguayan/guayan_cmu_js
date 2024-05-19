@@ -3,6 +3,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CMU Journal of Science</title>
 
+  <!-- BOXICONS -->
+
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+  <!-- END OF BOXICONS -->
+  
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
   <!-- Font Awesome Icons -->
@@ -130,7 +136,7 @@
         <?php if($this->session->userdata('roleid') == 2) :?>
         <li class="nav-header">PROOFREADER TOOLS</li>
           <li class="nav-item">
-            <a href="<?php echo base_url('home') ?>" class="nav-link">
+            <a href="<?php echo base_url('evaluate_articles') ?>" class="nav-link">
             <i class="fa fa-check-square" aria-hidden="true"></i>
               <p>
                 Evaluate Articles

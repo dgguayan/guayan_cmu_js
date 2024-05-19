@@ -21,14 +21,21 @@ $route['signin'] = 'generals/signin';
 $route['proofreaders'] = 'proofreaders';
 ////////////////////////////////
 
-//volume view
 
+//Evaluate articles view
+$route['evaluate_articles'] = 'evaluate';
+$route['article_detail_evaluate/(:any)'] = 'evaluate/evaluate_article_detail/$1';
+////////////////////////////////
+
+
+//volume view
 $route['volumes'] = 'volumes';
 $route['volumes_general'] = 'volumes/index_general';
 $route['add_volume'] = 'volumes/add_volume';
 $route['volume_detail_general/(:any)'] = 'volumes/view_general/$1';
 $route['volume_detail/(:any)'] = 'volumes/view/$1';
 // $route['volumes/articles/(:any)'] = 'volumes/articles/$1';
+////////////////////////////////
 
 //ARTICLE VIEW
 
