@@ -1,15 +1,15 @@
 <div class="content-wrapper" style="min-height: 1604.8px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="container-fluid text-center">
+      <div class="content">
         <div class="row mb-2 justify-content-center">
-          <div class="col-sm-6 text-center">
-            <h1>Edit Admin</h1>
+          <div class="col-sm-3">
+            <h1>Edit Proofreader</h1>
           </div>
-          <div class="col-sm-5 text-center">
+          <div class="col-sm-3">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Edit Admin</li>
+              <li class="breadcrumb-item active">Edit Proofreader</li>
             </ol>
           </div>
         </div>
@@ -18,7 +18,7 @@
 
     <?php echo validation_errors(); ?>
 
-    <?php echo form_open('users/update') ?>
+    <?php echo form_open('proofreaders/update_proofreader') ?>
     <input type="hidden" name="userid" value="<?php echo $users['userid']; ?>">
     <!-- Main content -->
     <section class="content">
@@ -70,7 +70,7 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-md-6">
-          <a href="<?php echo base_url('users'); ?>" class="btn btn-secondary">Cancel</a>
+          <a href="<?php echo base_url('proofreaders'); ?>" class="btn btn-secondary">Cancel</a>
           <input type="submit" value="Save Edit" class="btn btn-success float-right">
         </div>
       </div>

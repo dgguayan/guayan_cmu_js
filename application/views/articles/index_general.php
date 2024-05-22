@@ -23,7 +23,7 @@
     </section>
 
     <?php foreach($articles as $article) : ?>
-
+    
     <div class="row justify-content-center">
           <div class="col-md-9">
             <div class="card">
@@ -35,6 +35,24 @@
                 </h3>
               </div>
               <!-- /.card-header -->
+              
+                          
+              <?php if ($article['published'] == 1) { ?>
+                <div class="ribbon-wrapper ribbon-xl">
+                  <div class="ribbon bg-success text-lg">
+                    Published
+                  </div>
+                </div>
+              <?php } else { ?>
+                <div class="ribbon-wrapper ribbon-xl">
+                  <div class="ribbon bg-warning text-lg">
+                    Pending
+                  </div>
+                </div>
+              <?php } ?>
+                        
+                        
+                      
               <div class="card-body">
 
                 <!-- IMAGE -->
@@ -55,7 +73,7 @@
                 $author_names = array();
                 foreach ($authors as $author) {
                     if ($author['articleid'] == $article['articleid']) {
-                        $author_names[] = $author['author_name'];
+                        $author_names[] = $author['author_lastname'] . ' ' . $author['author_firstname'];
                     }
                 }
                 ?>
@@ -66,7 +84,15 @@
                
                   <p class="ml-5"><i class="mr-1 fa fa-link" aria-hidden="true"></i>DOI: <a class="text-primary" href="<?php echo $article['doi']; ?>"><?php echo $article['doi']; ?></a></p>
                 
-                  <p class="ml-5"><i class="mr-1  fa fa-file" aria-hidden="true"></i>PDF: <a class="text-primary" href="<?php echo base_url()?>assets/uploads/articles/<?php echo $article['filename'];?>" target="_blank">href="<?php echo base_url()?>assets/uploads/articles/<?php echo $article['filename'];?>"</a></p>
+                  <?php if (isset($_POST['view_current_pdf'])) {
+                    header('content-type: application/pdf');
+                    readfile('assets/uploads/articles/Guayan, Lamutay, Pascual, Sarausa - Pricing Document.pdf');
+                  }
+                  ?>
+
+                  <a class="text-primary" href="<?php echo base_url('assets/upload/articles/' . $article['filename']); ?>" target="_blank">
+                    <button type="button" class="btn btn-block btn-success col-md-2 mb-2 ml-5"><i class="mr-1 fa fa-file" aria-hidden="true"></i>Open PDF</button>
+                  </a>
 
                   <a href="<?php echo site_url('article_detail_general/'.$article['articleid']); ?>"><button type="button" class="btn btn-block btn-dark col-md-2 ml-5">Read More <i class="fa fa-arrow-right ml-1" style="color:white" aria-hidden="true"></i></button></a>
 

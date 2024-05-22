@@ -49,6 +49,21 @@
                 <label for="inputDescription">Abstract</label>
                 <textarea id="ckeditor" class="form-control" name="abstract" style="height: 500px;"></textarea>
               </div>
+
+              <div class="form-group">
+                <label>Authors</label>
+                <div class="select2-success">
+                  <select name="authors[]" class="select2 select2-hidden-accessible" multiple="" data-placeholder="Select authors" data-dropdown-css-class="select2-success" style="width: 100%;" data-select2-id="15" tabindex="-1" aria-hidden="true">
+                    
+                  <?php foreach($authors as $author) :?>
+                    <option  value="<?php echo $author['auid'];?>"><?php echo $author['author_lastname'] . ' ' . $author['author_firstname']; ?></option>
+                  <?php endforeach; ?>
+
+            
+                  </select>
+                </div>
+              </div>
+
               <div class="form-group">
               
                 <label for="inputStatus">Volume</label>
@@ -65,14 +80,15 @@
               </div>
               <div class="form-group">
                 <label for="inputClientCompany">DOI</label>
-                <input type="text" name="doi" id="doi" class="form-control">
+                <input placeholder="Enter DOI" type="text" name="doi" id="doi" class="form-control">
               </div>
               <div class="form-group">
                 <label for="exampleInputFile">Upload File</label>
                 <div class="input-group">
                   <div class="custom-file">
-                    <input type="file" name="filename">
+                    <input accept="application/pdf" type="file" name="filename">
                   </div>
+                  
                 </div>
               </div>
             </div>

@@ -24,7 +24,7 @@
 
 
     <?php echo validation_errors(); ?>
-    <?php echo form_open_multipart('articles/update_article')?>
+    <?php echo form_open_multipart('articles/update_article_pdf')?>
     <input type="hidden" name="articleid" value="<?php echo $articles['articleid']; ?>">
     <!-- Main content -->
     <section class="content">
@@ -45,38 +45,35 @@
                 <label for="inputName">Title</label>
                 <input type="text" id="title" name="title" class="form-control" value="<?php echo $articles['title']; ?>">
               </div>
-              <!-- <div class="form-group">
-                <label for="inputDescription">Abstract</label>
-                <textarea id="ckeditor" class="form-control" name="abstract" style="height: 500px;" value="<?php echo $articles['abstract']; ?>"></textarea>
-              </div>
-              <div class="form-group">
               
-                <label for="inputStatus">Volume</label>
-                
-                <select id="volumeid" name="volumeid" class="form-control custom-select" value="<?php echo $articles['volumeid']; ?>">
-                
-                  <option selected="" disabled="">Select volume</option>
-                  <?php foreach ($volumes as $volume) : ?>
-                  <option  value="<?php echo $articles['volumeid']; ?>"><?php echo $volume['vol_name']; ?></option>
-                  <?php endforeach; ?>
-                
-                </select>
-                
-              </div> -->
                 <div class="form-group">
                     <label for="inputDescription">Abstract</label>
                     <textarea id="ckeditor" class="form-control" name="abstract" style="height: 500px;"><?php echo $articles['abstract']; ?></textarea>
                 </div>
 
                 <div class="form-group">
+                <label>Authors</label>
+                <div class="select2-success">
+                  <select name="authors[]" class="select2 select2-hidden-accessible" multiple="" data-placeholder="Select authors" data-dropdown-css-class="select2-success" style="width: 100%;" data-select2-id="15" tabindex="-1" aria-hidden="true">
+                    
+                  <?php foreach($authors as $author) :?>
+                    <option  value="<?php echo $author['auid'];?>" required><?php echo $author['author_lastname'] . ' ' . $author['author_firstname']; ?></option>
+                  <?php endforeach; ?>
+
+            
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
                 
                 <label for="inputStatus">Volume</label>
                 
                 <select id="volumeid" name="volumeid" class="form-control custom-select">
                 
-                    <option selected="" disabled="" value="<?php echo $articles['volumeid'];?>">Volume <?php echo $articles['volumeid'];?></option>
+                    <option selected="" value="<?php echo $articles['volumeid'];?>">Volume <?php echo $articles['volumeid'];?></option>
                     <?php foreach ($volumes as $volume) : ?>
-                    <option  value="<?php echo $volume['volumeid'];?>"><?php echo $volume['vol_name']; ?></option>
+                    <option  value="<?php echo $volume['volumeid'];?>" required><?php echo $volume['vol_name']; ?></option>
                     <?php endforeach; ?>
                 
                 </select>
@@ -85,8 +82,23 @@
                 
               <div class="form-group">
                 <label for="inputClientCompany">DOI</label>
-                <input value="<?php echo $articles['doi']; ?>" type="text" name="doi" id="doi" class="form-control">
+                <input value="<?php echo $articles['doi']; ?>" type="text" name="doi" id="doi" class="form-control" required>
               </div>
+
+              <!-- </?php
+                $filename = $articles['filename'];
+                ?> -->
+
+                <div class="form-group">
+                    <label for="exampleInputFile">Upload File</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <!-- <input type="text" name="existing_filename" value="<//?php echo $filename; ?>" hidden> -->
+                            <input type="file" accept="application/pdf" name="filename" placeholder="<?php echo htmlspecialchars($articles['filename']);?>" required>
+                            <!-- <input type="file" name="filename"> -->
+                        </div>
+                    </div>
+                </div>
               
             </div>
             <!-- /.card-body -->
@@ -98,7 +110,7 @@
       <div class="row justify-content-center">
         <div class="col-md-6">
           <a href="#" class="btn btn-secondary">Cancel</a>
-          <input type="submit" value="Update Project" class="btn btn-success float-right">
+          <input id="submit" type="submit" value="Update Project" class="btn btn-success float-right">
         </div>
       </div>
     </section>

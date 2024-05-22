@@ -14,7 +14,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo base_url('generals'); ?>" class="nav-link text-bold">Home</a>
+        <a href="<?php echo base_url('generals'); ?>" class="nav-link text-bold"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
       </li>
       <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -23,6 +23,12 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+
+    <?php if($this->session->userdata('signedin')) : ?>
+          <li class="nav-item">
+            <a href="<?php echo base_url(); ?>generals/signout" class="nav-link text-bold"><i class="fa fa-user-times" aria-hidden="true"></i>Sign Out</a>
+          </li>
+        <?php endif; ?>
       <!-- Navbar Search -->
       
 

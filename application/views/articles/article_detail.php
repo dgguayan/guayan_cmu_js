@@ -7,22 +7,23 @@
             <div class="row mb-2">
             
               <div class="col-sm-6">
+
                 <div class="row">
                 <?php if( $this->session->userdata('roleid') == 1) :?>
                   <a href="<?php echo base_url('articles_general'); ?>" class="align-self-center" style="color: black !important;"><i class="fa fa-arrow-left align-self-center mr-3" aria-hidden="true"></i></a>
                 <?php endif; ?>
 
-                <?php if( $this->session->userdata('roleid') == 2) :?>
+                <?php if( $this->session->userdata('roleid') == 2 || ($this->session->userdata('rolebranch') == 2)):?>
                   <a href="<?php echo base_url('evaluate_articles'); ?>" class="align-self-center" style="color: black !important;"><i class="fa fa-arrow-left align-self-center mr-3" aria-hidden="true"></i></a>
                 <?php endif; ?>
 
                 <?php if( $this->session->userdata('roleid') == 3) :?>
                   <a href="<?php echo base_url('articles'); ?>" class="align-self-center" style="color: black !important;"><i class="fa fa-arrow-left align-self-center mr-3" aria-hidden="true"></i></a>
                 <?php endif; ?>
-                
+              
                 <h1 class="text-bold"><?= $title ?></h1>
                 </div>
-                
+              
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -69,7 +70,7 @@
                     $author_names = array();
                           foreach ($authors as $author) {
                               if ($author['articleid'] == $articles['articleid']) {
-                                  $author_names[] = $author['author_name'];
+                                  $author_names[] = $author['author_lastname'] . ' '. $author['author_firstname'];
                               }
                           }
                   ?>
@@ -80,8 +81,16 @@
                
                   <p class="ml-5"><i class="mr-1 fa fa-link" aria-hidden="true"></i>DOI: <a class="text-primary" href="<?php echo $articles['doi']; ?>"><?php echo $articles['doi']; ?></a></p>
                 
-                  <p class="ml-5"><i class="mr-1  fa fa-file" aria-hidden="true"></i>PDF: <a class="text-primary" href="<?php echo base_url()?>assets/uploads/articles/<?php echo $articles['filename'];?>" target="_blank">href="<?php echo base_url()?>assets/uploads/articles/<?php echo $articles['filename'];?>"</a></p>
-                  
+                  <?php if (isset($_POST['view_current_pdf'])) {
+                    header('content-type: application/pdf');
+                    readfile('assets/uploads/articles/Guayan, Lamutay, Pascual, Sarausa - Pricing Document.pdf');
+                  }
+                  ?>
+
+                  <a class="text-primary" href="<?php echo base_url('assets/upload/articles/' . $articles['filename']); ?>" target="_blank">
+                    <button type="button" class="btn btn-block btn-success col-md-2 mb-5 ml-5"><i class="mr-1 fa fa-file" aria-hidden="true"></i>Open PDF</button>
+                  </a>
+
                   <?php  // if($this->session->userdata('userid') == $articles['userid'] || $this->session->userdata('roleid') == 3) :?>
 
                     <!-- AUTHORS -->
@@ -102,7 +111,7 @@
                     <//?php endif; ?> -->
 
                     <!-- ADMIN -->
-                    <?php if( $this->session->userdata('roleid') == 3) :?>
+                    <?php if( $this->session->userdata('roleid') == 3 || $this->session->userdata('rolebranch') == 3):?>
                         <a class="btn-block" href="<?php echo site_url("articles/edit_article/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-primary">Edit</button></a>
                         
                         <?php echo form_open('articles/delete_article_admin/'.$articles['articleid'], array('style' => 'display: block;')); ?>
@@ -113,9 +122,21 @@
 
                     <!-- EVALUATOR -->
 
-                    <?php if( $this->session->userdata('roleid') == 2) :?>
-                        <a class="btn-block" href="<?php echo site_url("evaluate/approve_article/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-success">Approve</button></a>
-                        
+                    <!-- as proofreader -->
+                    <?php if( $this->session->userdata('roleid') == 2 || $this->session->userdata('rolebranch') == 2): ?>
+                      <?php if ($articles['published'] == 0) : ?>
+                        <a class="mt-2 btn-block" href="<?php echo site_url("evaluate/approve_article/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-success">Approve</button></a>
+                      <?php endif; ?>
+                    <?php endif; ?>
+
+                    <!-- as admin -->
+                    <?php if( $this->session->userdata('roleid') == 3 || $this->session->userdata('rolebranch') == 3):?>
+                      <?php if ($articles['published'] == 0) : ?>
+                        <a class="mt-2 btn-block" href="<?php echo site_url("evaluate/approve_article_by_admin/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-success">Approve</button></a>
+                      <?php endif; ?>
+                      <?php if ($articles['published'] == 1) : ?>
+                        <a class="mt-2 btn-block" href="<?php echo site_url("evaluate/unapprove_article_by_admin/".$articles['articleid']); ?>"><button type="button" class="btn btn-block btn-warning">Unpublish</button></a>
+                      <?php endif; ?>
                     <?php endif; ?>
                  
                   </div>

@@ -14,6 +14,9 @@
                 // }
 
                 // Redirect if user is not signed in
+                // Assuming $users_data is an array containing user data
+                
+
                 if(!$this->session->userdata('signedin'))
                 {
                     redirect('generals');

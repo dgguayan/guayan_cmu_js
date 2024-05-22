@@ -44,7 +44,9 @@
                 
                   <option selected="" disabled="">Select account type</option>
                   <?php foreach ($roles as $role) : ?>
-                  <option  value="<?php echo $role['roleid'];?>"><?php echo $role['rolename']; ?></option>
+                    <?php if ($role['status'] == 1) : ?>
+                      <option  value="<?php echo $role['roleid'];?>"><?php echo $role['rolename']; ?></option>
+                    <?php endif; ?>
                   <?php endforeach; ?>
                 
                 </select>

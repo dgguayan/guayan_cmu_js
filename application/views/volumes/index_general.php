@@ -25,6 +25,7 @@
    
         <div class="row">
         <?php foreach($volumes as $volume) : ?>
+          <?php if ($volume['status'] == 1) : ?>
           <div class="col-lg-12">
           <div class="card card-warning card-outline">
               <div class="card-header">
@@ -56,7 +57,7 @@
             <!-- /.card -->
           </div>
           <!-- /.col-md-6 -->
-          
+          <?php endif; ?>
         </div>
         
         <?php endforeach; ?>

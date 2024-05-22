@@ -41,11 +41,30 @@
             $this->load->view('templates/footer', $data);
         }
 
+        //as proofreader
         public function approve_article($articleid)
         {
+            $data['articles'] = $this->article_model->get_articles();
             $this->load->model('article_model');
             $this->article_model->approve_article($articleid);
             redirect('evaluate_articles');
+        }
+
+        //as admin
+        public function approve_article_by_admin($articleid)
+        {
+            $data['articles'] = $this->article_model->get_articles();
+            $this->load->model('article_model');
+            $this->article_model->approve_article($articleid);
+            redirect('articles');
+        }
+        
+        public function unapprove_article_by_admin($articleid)
+        {
+            $data['articles'] = $this->article_model->get_articles();
+            $this->load->model('article_model');
+            $this->article_model->unapprove_article($articleid);
+            redirect('articles');
         }
 
     }

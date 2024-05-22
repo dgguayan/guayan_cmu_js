@@ -26,6 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $root = "http://".$_SERVER['HTTP_HOST'];
 $root .= dirname($_SERVER['SCRIPT_NAME']);
 $config['base_url'] = $root;
+// $config['base_url'] = "http://192.168.137.215/";
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -161,7 +162,8 @@ $config['composer_autoload'] = FALSE;
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\- ';
+// $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 
 /*
 |--------------------------------------------------------------------------

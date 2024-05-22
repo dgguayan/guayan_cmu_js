@@ -3,13 +3,13 @@
     <section class="content-header">
       <div class="content">
         <div class="row mb-2 justify-content-center">
-          <div class="col-md-3">
-            <h1>Add Admin</h1>
+          <div class="col-sm-3">
+            <h1>Add Author</h1>
           </div>
-          <div class="col-md-3">
+          <div class="col-sm-3">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Add Admin</li>
+              <li class="breadcrumb-item active">Add Author</li>
             </ol>
           </div>
         </div>
@@ -18,7 +18,7 @@
 
     <?php echo validation_errors(); ?>
 
-    <?php echo form_open('users/add_user') ?>
+    <?php echo form_open('users/add_user_author') ?>
 
     <!-- Main content -->
     <section class="content">
@@ -64,14 +64,20 @@
               
           <label for="inputStatus">Account Type</label>
           
+          <!-- <select id="roleid" name="roleid" class="form-control custom-select">
+              <option selected="" disabled="">Select account type</option>
+              </?php foreach ($roles as $role) : ?>
+                  <option  value="</?php echo $role['roleid'];?>"></?php echo $role['rolename']; ?></option>
+              </?php endforeach; ?>
+          </select> -->
           <select id="roleid" name="roleid" class="form-control custom-select">
-    <option disabled="">Select account type</option>
-    <?php foreach ($roles as $role) : ?>
-        <option value="<?php echo $role['roleid']; ?>" <?php echo ($role['roleid'] == 3) ? 'selected' : ''; ?>>
-            <?php echo $role['rolename']; ?>
-        </option>
-    <?php endforeach; ?>
-</select>
+                <option disabled="">Select account type</option>
+                <?php foreach ($roles as $role) : ?>
+                    <option value="<?php echo $role['roleid']; ?>" <?php echo ($role['roleid'] == 1) ? 'selected' : ''; ?>>
+                        <?php echo $role['rolename']; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
 
           
@@ -103,7 +109,7 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-md-6">
-          <a href="<?php echo base_url('users'); ?>" class="btn btn-secondary">Cancel</a>
+          <a href="<?php echo base_url('authors'); ?>" class="btn btn-secondary">Cancel</a>
           <input type="submit" value="Add new User" class="btn btn-success float-right">
         </div>
       </div>

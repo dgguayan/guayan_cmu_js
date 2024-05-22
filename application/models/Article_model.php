@@ -32,8 +32,44 @@
         }
 
 
+        // public function add_article($filename)
+        // {
+        //     $articleid = url_title($this->input->post('title'));
+
+        //     $data = array(
+        //         'articleid' => $articleid,
+        //         'title' => $this->input->post('title'),
+        //         'abstract' => $this->input->post('abstract'),
+        //         'volumeid' => $this->input->post('volumeid'),
+        //         'doi' => $this->input->post('doi'),
+        //         'userid' => $this->session->userdata('userid'),
+        //         'filename' => $filename,
+        //     );
+            
+        //     $this->db->insert('articles', $data);
+
+            
+        //     $articleid = $this->db->insert_id();
+
+        //     $selected_authors = $this->input->post('authors');
+
+        //     if (!empty($selected_authors)) {
+        //         foreach ($selected_authors as $author_id) {
+        //             $data2 = array(
+        //                 'articleid' => $articleid,
+        //                 'auid' => $author_id,
+        //             );
+        //             $this->db->insert('article_author', $data2);
+        //         }
+        //     }
+
+        //     return true;
+        // }
         public function add_article($filename)
         {
+            // Remove spaces from the filename
+            $filename = str_replace(' ', '', $filename);
+
             $articleid = url_title($this->input->post('title'));
 
             $data = array(
@@ -65,6 +101,8 @@
 
             return true;
         }
+
+
 
         public function get_volume()
         {
@@ -132,22 +170,82 @@
         
 
         //edit
-        public function update_article()
+        public function update_article($filename)
         {
             $articleid = url_title($this->input->post('title'));
 
             $data = array(
-                
                 'title' => $this->input->post('title'),
                 'abstract' => $this->input->post('abstract'),
                 'volumeid' => $this->input->post('volumeid'),
                 'doi' => $this->input->post('doi'),
-                // 'filename' => $this->input->post('filename'),
+                'filename' => $filename,
             );
             
+            // Update the article
             $this->db->where('articleid', $this->input->post('articleid'));
-            return $this->db->update('articles', $data);
+            $update_article = $this->db->update('articles', $data);
+
+            // Update the authors
+            $selected_authors = $this->input->post('authors');
+            if (!empty($selected_authors)) {
+                // First, delete existing authors for this article
+                $this->db->delete('article_author', array('articleid' => $this->input->post('articleid')));
+
+                // Then, insert the new authors
+                foreach ($selected_authors as $author_id) {
+                    $data2 = array(
+                        'articleid' => $this->input->post('articleid'),
+                        'auid' => $author_id,
+                    );
+                    $this->db->insert('article_author', $data2);
+                }
+            }
+
+            return $update_article;
         }
+
+
+        // public function update_article($filename)
+        // {
+        //     // Remove spaces from the filename
+        //     $filename = str_replace(' ', '', $filename);
+
+        //     $articleid = url_title($this->input->post('title'));
+
+        //     $data = array(
+                
+        //         'title' => $this->input->post('title'),
+        //         'abstract' => $this->input->post('abstract'),
+        //         'volumeid' => $this->input->post('volumeid'),
+        //         'doi' => $this->input->post('doi'),
+        //         'userid' => $this->session->userdata('userid'),
+        //         'filename' => $filename,
+        //     );
+            
+        //     $this->db->insert('articles', $data);
+
+            
+        //     $articleid = $this->db->insert_id();
+
+        //     $selected_authors = $this->input->post('authors');
+
+        //     if (!empty($selected_authors)) {
+        //         foreach ($selected_authors as $author_id) {
+        //             $data2 = array(
+        //                 'articleid' => $articleid,
+        //                 'auid' => $author_id,
+        //             );
+        //             $this->db->insert('article_author', $data2);
+        //         }
+        //     }
+
+        //     $this->db->where('articleid', $this->input->post('articleid'));
+        //     return $this->db->update('articles', $data);
+
+        //     return true;
+        // }
+
 
         //article id admin
         public function delete_article_admin($articleid)
@@ -167,7 +265,15 @@
 
         public function approve_article($articleid)
         {
-            $data = array('approve' => 1);
+            $data = array('published' => 1);
+            $this->db->where('articleid', $articleid);
+            $this->db->update('articles', $data);
+            return true;
+        }
+
+        public function unapprove_article($articleid)
+        {
+            $data = array('published' => 0);
             $this->db->where('articleid', $articleid);
             $this->db->update('articles', $data);
             return true;

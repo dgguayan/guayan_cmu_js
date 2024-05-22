@@ -56,4 +56,29 @@
             return isset($user['lastname']) ? $user['lastname'] : null;
         }
 
+        public function get_user_info_profile_pic($userid) {
+            $query = $this->db->get_where('users', array('userid' => $userid));
+            $user = $query->row_array();
+            return isset($user['profile_pic']) ? $user['profile_pic'] : null;
+        }
+
+        //get role branch by role id
+        public function get_rolebranch($userid) {
+            $this->db->select('role.rolebranch');
+            $this->db->from('role'); 
+            $this->db->join('users', 'role.roleid = users.roleid');
+            $this->db->where('users.userid', $userid);
+            $query = $this->db->get(); 
+        
+            $user = $query->row_array(); 
+        
+            if (isset($user['rolebranch'])) {
+                return $user['rolebranch']; 
+            } else {
+                return null;
+            }
+        }
+        
+        
+
     }

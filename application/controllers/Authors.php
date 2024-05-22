@@ -22,7 +22,7 @@
                 $data['authors'] = $this->author_model->get_authors($auid);
                 $data['users'] = $this->user_model->get_users();
 
-                $data['users'] = $this->article_model->get_user_by_author_userid($data['authors']['userid']);
+                // $data['users'] = $this->author_model->get_user_by_author_userid($data['authors']['userid']);
         
                 if (empty($data['authors']))
                 {

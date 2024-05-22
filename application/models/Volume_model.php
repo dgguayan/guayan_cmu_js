@@ -33,4 +33,24 @@
 
         }
 
+        public function delete_volume($volumeid)
+        {
+            $this->db->where('volumeid', $volumeid);
+            $this->db->delete('volume');
+            return true;
+        }
+
+        public function update_volume()
+        {
+            $volumeid = url_title($this->input->post('vol_name'));
+
+            $data = array(
+                'vol_name' => $this->input->post('vol_name'),
+                'description' => $this->input->post('description'),
+                'status' => $this->input->post('status'),
+            );
+
+            $this->db->where('volumeid', $this->input->post('volumeid'));
+            return $this->db->update('volume', $data);
+        }
     }

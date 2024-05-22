@@ -93,6 +93,7 @@
             $data['title'] = 'Add Article';
 
             $data['volumes'] = $this->article_model->get_volume();
+            $data['authors'] = $this->author_model->get_authors();
 
             $this->form_validation->set_rules('title', 'Title', 'required');
             $this->form_validation->set_rules('abstract', 'Abstract', 'required');
@@ -119,23 +120,259 @@
                 
                 $this->load->library('upload', $config);
 
+                // if (! $this->upload->do_upload('filename'))
+                // {
+                //     $errors = array('error' => $this->upload->display_errors());
+                //     $filename = 'no_upload.jpg';
+                // } else {
+                //     $data = array('upload_data' => $this->upload->data());
+                //     $filename = $_FILES['filename']['name'];
+                // }
+
+                // $this->article_model->add_article($filename);
+                
+                // redirect('articles');
+
+                // redirect('articles');
+
+                $original_filename = $_FILES['filename']['name'];
+
+                // Remove spaces from the filename
+                $filename = str_replace(' ', '', $original_filename);
+
+                // Upload the file with the formatted filename
                 if (! $this->upload->do_upload('filename'))
                 {
                     $errors = array('error' => $this->upload->display_errors());
-                    $filename = 'no_upload.jpg';
+                    $filename = 'no_upload.jpg'; // Default filename if upload fails
                 } else {
                     $data = array('upload_data' => $this->upload->data());
-                    $filename = $_FILES['filename']['name'];
+                    // Update the filename to the formatted filename
+                    $filename = $data['upload_data']['file_name'];
                 }
 
+                // Store the formatted filename in the database
                 $this->article_model->add_article($filename);
-                
-                redirect('articles');
 
-                // redirect('articles');
-            }
+                redirect('articles');
+                }
             
         }
+
+        // public function update_article_pdf()
+        // {
+        //     $data['title'] = 'Add Article';
+
+        //     $data['volumes'] = $this->article_model->get_volume();
+        //     $data['authors'] = $this->author_model->get_authors();
+
+        //     $this->form_validation->set_rules('title', 'Title', 'required');
+        //     $this->form_validation->set_rules('abstract', 'Abstract', 'required');
+        //     $this->form_validation->set_rules('volumeid', 'Volumeid', 'required');
+        //     $this->form_validation->set_rules('doi', 'Doi', 'required');
+        //     // $this->form_validation->set_rules('filename', 'Filename', 'required');
+        //     $this->form_validation->set_rules('filename', 'Filename', 'callback_file_check');
+
+        //     if($this->form_validation->run() === FALSE)
+        //     {
+        //         $this->load->view('templates/header', $data);
+        //         $this->load->view('templates/topmenu', $data);
+        //         $this->load->view('templates/sidemenu', $data);
+        //         $this->load->view('articles/add_article');
+        //         $this->load->view('templates/footer');
+        //     } else {
+                
+        //         $config['upload_path']          = './assets/upload/articles/';
+        //         $config['allowed_types']        = 'gif|jpg|png|pdf';
+        //         $config['max_size']             = 10000;
+        //         $config['max_width']            = 1024;
+        //         $config['max_height']           = 768;
+
+                
+        //         $this->load->library('upload', $config);
+
+        //         // if (! $this->upload->do_upload('filename'))
+        //         // {
+        //         //     $errors = array('error' => $this->upload->display_errors());
+        //         //     $filename = 'no_upload.jpg';
+        //         // } else {
+        //         //     $data = array('upload_data' => $this->upload->data());
+        //         //     $filename = $_FILES['filename']['name'];
+        //         // }
+
+        //         // $this->article_model->add_article($filename);
+                
+        //         // redirect('articles');
+
+        //         // redirect('articles');
+
+        //         $original_filename = $_FILES['filename']['name'];
+
+        //         // Remove spaces from the filename
+        //         $filename = str_replace(' ', '', $original_filename);
+
+        //         // Upload the file with the formatted filename
+        //         if (! $this->upload->do_upload('filename'))
+        //         {
+        //             $errors = array('error' => $this->upload->display_errors());
+        //             $filename = 'no_upload.jpg'; // Default filename if upload fails
+        //         } else {
+        //             $data = array('upload_data' => $this->upload->data());
+        //             // Update the filename to the formatted filename
+        //             $filename = $data['upload_data']['file_name'];
+        //         }
+
+        //         // Store the formatted filename in the database
+        //         $this->article_model->update_article($filename);
+
+        //         redirect('articles');
+        //         }
+            
+        // }
+
+        public function update_article_pdf_general()
+        {
+            $data['title'] = 'Add Article';
+
+            $data['volumes'] = $this->article_model->get_volume();
+            $data['authors'] = $this->author_model->get_authors();
+
+            $this->form_validation->set_rules('title', 'Title', 'required');
+            $this->form_validation->set_rules('abstract', 'Abstract', 'required');
+            $this->form_validation->set_rules('volumeid', 'Volumeid', 'required');
+            $this->form_validation->set_rules('doi', 'Doi', 'required');
+            // $this->form_validation->set_rules('filename', 'Filename', 'required');
+            $this->form_validation->set_rules('filename', 'Filename', 'callback_file_check');
+
+            if($this->form_validation->run() === FALSE)
+            {
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/topmenu', $data);
+                $this->load->view('templates/sidemenu', $data);
+                $this->load->view('articles/add_article');
+                $this->load->view('templates/footer');
+            } else {
+                
+                $config['upload_path']          = './assets/upload/articles/';
+                $config['allowed_types']        = 'gif|jpg|png|pdf';
+                $config['max_size']             = 10000;
+                $config['max_width']            = 1024;
+                $config['max_height']           = 768;
+
+                
+                $this->load->library('upload', $config);
+
+                // if (! $this->upload->do_upload('filename'))
+                // {
+                //     $errors = array('error' => $this->upload->display_errors());
+                //     $filename = 'no_upload.jpg';
+                // } else {
+                //     $data = array('upload_data' => $this->upload->data());
+                //     $filename = $_FILES['filename']['name'];
+                // }
+
+                // $this->article_model->add_article($filename);
+                
+                // redirect('articles');
+
+                // redirect('articles');
+
+                $original_filename = $_FILES['filename']['name'];
+
+                // Remove spaces from the filename
+                $filename = str_replace(' ', '', $original_filename);
+
+                // Upload the file with the formatted filename
+                if (! $this->upload->do_upload('filename'))
+                {
+                    $errors = array('error' => $this->upload->display_errors());
+                    $filename = 'no_upload.jpg'; // Default filename if upload fails
+                } else {
+                    $data = array('upload_data' => $this->upload->data());
+                    // Update the filename to the formatted filename
+                    $filename = $data['upload_data']['file_name'];
+                }
+
+                // Store the formatted filename in the database
+                $this->article_model->update_article($filename);
+
+                redirect('articles_general');
+                }
+            
+        }
+
+        public function update_article_pdf()
+        {
+            $data['title'] = 'Add Article';
+
+            $data['volumes'] = $this->article_model->get_volume();
+            $data['authors'] = $this->author_model->get_authors();
+
+            $this->form_validation->set_rules('title', 'Title', 'required');
+            $this->form_validation->set_rules('abstract', 'Abstract', 'required');
+            $this->form_validation->set_rules('volumeid', 'Volumeid', 'required');
+            $this->form_validation->set_rules('doi', 'Doi', 'required');
+            // $this->form_validation->set_rules('filename', 'Filename', 'required');
+            $this->form_validation->set_rules('filename', 'Filename', 'callback_file_check');
+
+            if($this->form_validation->run() === FALSE)
+            {
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/topmenu', $data);
+                $this->load->view('templates/sidemenu', $data);
+                $this->load->view('articles/add_article');
+                $this->load->view('templates/footer');
+            } else {
+                
+                $config['upload_path']          = './assets/upload/articles/';
+                $config['allowed_types']        = 'gif|jpg|png|pdf';
+                $config['max_size']             = 10000;
+                $config['max_width']            = 1024;
+                $config['max_height']           = 768;
+
+                
+                $this->load->library('upload', $config);
+
+                // if (! $this->upload->do_upload('filename'))
+                // {
+                //     $errors = array('error' => $this->upload->display_errors());
+                //     $filename = 'no_upload.jpg';
+                // } else {
+                //     $data = array('upload_data' => $this->upload->data());
+                //     $filename = $_FILES['filename']['name'];
+                // }
+
+                // $this->article_model->add_article($filename);
+                
+                // redirect('articles');
+
+                // redirect('articles');
+
+                $original_filename = $_FILES['filename']['name'];
+
+                // Remove spaces from the filename
+                $filename = str_replace(' ', '', $original_filename);
+
+                // Upload the file with the formatted filename
+                if (! $this->upload->do_upload('filename'))
+                {
+                    $errors = array('error' => $this->upload->display_errors());
+                    $filename = 'no_upload.jpg'; // Default filename if upload fails
+                } else {
+                    $data = array('upload_data' => $this->upload->data());
+                    // Update the filename to the formatted filename
+                    $filename = $data['upload_data']['file_name'];
+                }
+
+                // Store the formatted filename in the database
+                $this->article_model->update_article($filename);
+
+                redirect('articles');
+                }
+            
+        }
+
+        
 
         public function file_check($str)
         {
@@ -151,6 +388,7 @@
         public function edit_article($articleid)
         {
             $data['articles'] = $this->article_model->get_articles($articleid);
+            $data['authors'] = $this->author_model->get_authors();
 
             $data['volumes'] = $this->article_model->get_volume();
 
@@ -173,6 +411,7 @@
         public function edit_article_general($articleid)
         {
             $data['articles'] = $this->article_model->get_articles($articleid);
+            $data['authors'] = $this->author_model->get_authors();
 
             $data['volumes'] = $this->article_model->get_volume();
 
@@ -190,10 +429,19 @@
         }
 
         //admin redirect
+        // public function update_article(){
+        //     $this->article_model->update_article();
+        //     redirect('articles');
+        // }
         public function update_article(){
-            $this->article_model->update_article();
+            $articleid = $this->input->post('articleid');
+            $filename = $this->input->post('filename');
+            
+            $this->article_model->update_article($articleid, $filename);
             redirect('articles');
         }
+        
+        
 
         //general redirect
         public function update_article_general(){
@@ -212,5 +460,15 @@
             redirect('articles_general');
         }
         
-
+        // public function view_pdf($encoded_filename) {
+        //     $filename = base64_decode($encoded_filename);
+        //     $filepath = FCPATH . 'assets/uploads/articles/' . $filename;
+    
+        //     if (file_exists($filepath)) {
+        //         header('Content-Type: application/pdf');
+        //         readfile($filepath);
+        //     } else {
+        //         show_404();
+        //     }
+        // }
     }

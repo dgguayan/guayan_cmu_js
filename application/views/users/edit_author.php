@@ -4,12 +4,12 @@
       <div class="container-fluid text-center">
         <div class="row mb-2 justify-content-center">
           <div class="col-sm-6 text-center">
-            <h1>Edit Admin</h1>
+            <h1>Edit Author</h1>
           </div>
           <div class="col-sm-5 text-center">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Edit Admin</li>
+              <li class="breadcrumb-item active">Edit Author</li>
             </ol>
           </div>
         </div>
@@ -18,7 +18,7 @@
 
     <?php echo validation_errors(); ?>
 
-    <?php echo form_open('users/update') ?>
+    <?php echo form_open('users/update_author') ?>
     <input type="hidden" name="userid" value="<?php echo $users['userid']; ?>">
     <!-- Main content -->
     <section class="content">
@@ -26,7 +26,7 @@
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Edit User</h3>
+              <h3 class="card-title">Edit Author</h3>
 
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">

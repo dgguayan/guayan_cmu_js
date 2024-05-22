@@ -13,6 +13,7 @@
                 'email' => $this->input->post('email'),
                 'roleid' => $this->input->post('roleid'),
                 'pword' => $enc_password,
+                'profile_pic' => "default.jpg",
             );
             // return $this->db->insert('users', $data);
 
@@ -27,7 +28,9 @@
                 $data2 = array(
                     'auid' => $userid,
                     'userid' => $userid,
-                    'author_name' => $this->input->post('firstname') . $this->input->post('lastname'),
+                    'author_firstname' => $this->input->post('firstname'),
+                    'author_lastname' => $this->input->post('lastname'),
+                    // 'author_name' => $this->input->post('firstname') . $this->input->post('lastname'),
                     'email' => $this->input->post('email'),
                     'title' => $this->input->post('roleid'),
                 );

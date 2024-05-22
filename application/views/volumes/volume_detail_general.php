@@ -68,6 +68,8 @@
                 <?php endforeach; ?>
             </ul> -->
         <?php foreach($articles as $article) : ?>
+            
+        <?php if ($article['published'] == 1) : ?>
 
         <div class="row justify-content-center">
               <div class="col-md-11">
@@ -128,6 +130,7 @@
               
               <!-- ./col -->
             </div>
+            <?php endif; ?>
             <?php endforeach; ?>
               <!-- /.card -->
             </div>

@@ -4,7 +4,7 @@
 
         public function index()
         {
-            $data['title'] = 'List of Volumes';
+            $data['title'] = 'Table of Volumes';
 
             $data['volumes'] = $this->volume_model->get_volumes();
 
@@ -110,7 +110,39 @@
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/topmenuandsidebar', $data);
-            $this->load->view('volumes/volume_detail', $data);
+            $this->load->view('volumes/volume_detail_general', $data);
             $this->load->view('templates/footer'); 
         }
+
+        public function delete_volume($volumeid){
+            $this->volume_model->delete_volume($volumeid);
+            redirect('volumes');
+        }
+
+        public function edit_volume($volumeid)
+        {
+                $data['volumes'] = $this->volume_model->get_volumes($volumeid);
+
+                if(empty($data['volumes']))
+                {
+                        show_404();
+                }
+
+                $data['title'] = 'Edit Volume';
+
+                $this->load->view('templates/header');
+                $this->load->view('templates/topmenu');
+                $this->load->view('templates/sidemenu');
+                $this->load->view('volumes/volume_edit', $data);
+                $this->load->view('templates/footer');   
+
+               
+        }
+
+        public function update_volume()
+        {
+            $this->volume_model->update_volume();
+            redirect('volumes');
+        }
+
     }
