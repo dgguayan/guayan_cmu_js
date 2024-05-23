@@ -82,7 +82,7 @@
 
                   <p class="ml-5"><i class="mr-1 fa fa-calendar" aria-hidden="true"></i>Date Published: <?php echo $article['date_published']; ?></p>
                
-                  <p class="ml-5"><i class="mr-1 fa fa-link" aria-hidden="true"></i>DOI: <a class="text-primary" href="<?php echo $article['doi']; ?>"><?php echo $article['doi']; ?></a></p>
+                  <p class="ml-5"><i class="mr-1 fa fa-link" aria-hidden="true"></i>DOI: <a class="text-primary" href="<?php echo $article['doi']; ?>"><?php echo word_limiter($article['doi'], 10); ?></a></p>
                 
                   <?php if (isset($_POST['view_current_pdf'])) {
                     header('content-type: application/pdf');

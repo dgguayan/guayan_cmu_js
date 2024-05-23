@@ -65,13 +65,13 @@
           <label for="inputStatus">Account Type</label>
           
           <select id="roleid" name="roleid" class="form-control custom-select">
-    <option disabled="">Select account type</option>
-    <?php foreach ($roles as $role) : ?>
-        <option value="<?php echo $role['roleid']; ?>" <?php echo ($role['roleid'] == 3) ? 'selected' : ''; ?>>
-            <?php echo $role['rolename']; ?>
-        </option>
-    <?php endforeach; ?>
-</select>
+              <option disabled="">Select account type</option>
+              <?php foreach ($roles as $role) : ?>
+                  <option value="<?php echo $role['rolebranch']; ?>" <?php echo ($role['roleid'] == 3) ? 'selected' : ''; ?>>
+                      <?php echo $role['rolename']; ?>
+                  </option>
+              <?php endforeach; ?>
+          </select>
 
 
           
